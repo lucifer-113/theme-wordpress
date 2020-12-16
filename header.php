@@ -7,7 +7,6 @@
     <?php wp_head();?>
 </head>
 <body>
-    <?php body_class(); ?>>
     <div id="container">
     <div class="logo">
     <?php thuanvo_header();?>

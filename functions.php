@@ -101,8 +101,9 @@ if(!function_exists('thuanvo_menu')){
     function thuanvo_menu ($menu){
             $menu=array(
                 'theme_location'=> $menu,
-                'container'=>$nav,
-                'container_class'=> $menu
+                'container'=>'nav',
+                'container_class'=> $menu,
+                'items_wrap'=>'<ul id="%1$s" class="%2$s sf-menu"> %3$s</ul>'
             );
             wp_nav_menu($menu);
     }
@@ -189,7 +190,7 @@ if(!function_exists('thuanvo_thumbnail')){
 
 if(!function_exists('thuanvo_entry_content')){
     function thuanvo_entry_content(){
-        if( !is_single() ){
+        if( !is_single() && !is_page() ){
             the_excerpt();
         } else{
             the_content();
@@ -225,3 +226,26 @@ add_filter('excerpt_more','thuanvo_readmore');
          endif;
      }
  }
+
+ /** Nhúng file style.css */
+ function thuanvo_style() {
+     wp_register_style('main-style',get_template_directory_uri()."/style.css",'all');
+     wp_enqueue_style('main-style');
+     wp_register_style('reset-style',get_template_directory_uri()."/reset.css",'all');
+     wp_enqueue_style('reset-style');
+     
+     //super fish Menu
+
+     wp_register_style('superfish-style',get_template_directory_uri()."/superfish.css",'all');
+     wp_enqueue_style('superfish-style');
+
+     wp_register_script('superfish-script',get_template_directory_uri()."/superfish.js",array('jquery'));
+     wp_enqueue_script('superfish-script');
+
+     //custom script
+     wp_register_script('custom-script',get_template_directory_uri()."/custom.js",array('jquery'));
+     wp_enqueue_script('custom-script');
+    
+
+ }
+ add_action('wp_enqueue_scripts','thuanvo_style');
